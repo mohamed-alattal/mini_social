@@ -59,15 +59,14 @@ router.get('/logout', function(req, res){
 //   the request is authenticated (typically via a persistent login session),
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
-function ensureAuthenticated(req, res, next) {
+router.use(function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
-}
+})
 
 //POST API to add a post
 router.post('/api/addPost',function(req,res){
   var post = {};
-  console.log(req.session);
   post.post_content = req.body.post_content;
   post.user_id = req.session.passport.user.id;
   db.dbInsertPost(post,function(){
