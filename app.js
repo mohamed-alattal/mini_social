@@ -7,9 +7,9 @@ var express = require('express')
   , bodyParser = require("body-parser")
   , cookieParser = require("cookie-parser")
   , methodOverride = require('method-override');
+require('dotenv').config();
 
-var FACEBOOK_APP_ID = "1593603714012782"
-var FACEBOOK_APP_SECRET = "fc096d010e91960e836164e995c9cf8a";
+
 var db = require('./config/database.js');
 db.connect();
 
@@ -26,8 +26,8 @@ passport.deserializeUser(function(obj, done) {
 });
 //setting up facebook auth
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:3001/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {

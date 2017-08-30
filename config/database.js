@@ -11,8 +11,9 @@ const query_delete_table_post = "DROP TABLE IF EXISTS dev.post;";
 exports.connect = function(){
   client = new cassandra.Client({contactPoints: ['127.0.0.1'], keyspace: 'dev'});
     client.execute(query_create_table_users,function(err) {
-      if(!err)
-        console.log('users table created successfully');
+      if(!err){
+        
+      }
         else {
             console.log(err);
           }
@@ -21,8 +22,9 @@ exports.connect = function(){
     client.execute(query_create_table_posts,function(err) {
       var create_index ='CREATE INDEX ON post(user_id);';
       client.execute(create_index);
-      if(!err)
-        console.log('posts table created successfully');
+      if(!err){
+
+      }
         else {
             console.log(err);
           }
