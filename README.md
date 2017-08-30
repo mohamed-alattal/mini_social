@@ -7,4 +7,4 @@ run the following commands in the command line:
 
   npm install
   
-  nodemon ./bin/www
+  nodemon 
