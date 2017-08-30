@@ -1,0 +1,22 @@
+<% if (!user) { %>
+	<h2>Welcome! Please log in.</h2>
+  <a href="/auth/facebook"><img src="images/login-with-facebook.png" width="154" height="22"></a>
+<% } else { %>
+	<h2>Hello, <%= user.displayName %>.</h2>
+  <h1>Posts</h1>
+  <form method="post" action="/api/addPost">
+    <div class="form-group">
+        <label>content</label>
+        <input type="text" class="form-control" name="post_content" id="post_content">
+    </div>
+
+    <button type="submit" class="btn btn-warning btn-lg">add post</button>
+</form>
+<ul>
+     <%for (var result in posts){%>
+                <li><%=posts[result].post_content%></li>
+                <a href="/api/deletePost/<%=posts[result].post_id%>">Delete</a>
+        <%}%>
+
+</ul>
+<% } %>
