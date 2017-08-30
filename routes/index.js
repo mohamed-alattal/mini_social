@@ -74,6 +74,14 @@ router.post('/api/addPost',function(req,res){
   });
 });
 
+//GET API to list posts
+router.get('/api/posts',function(req,res){
+  post = db.getPosts(req.session.passport.user.id,function(err,rows){
+    //console.log(rows);
+     res.json(rows);
+   });
+});
+
 //GET API to delete a post
 router.get('/api/deletePost/:postID',function(req,res){
   console.log(req.params.postID);
