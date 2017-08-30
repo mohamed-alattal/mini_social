@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var db = require('../config/database.js');
-// var configDB = require('../config/database.js');
-//
-// configDB.connect();
+
 /* GET home page. */
 router.get('/', function(req, res){
 
@@ -21,10 +19,7 @@ router.get('/', function(req, res){
 
 });
 
-router.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
-});
-
+//login API
 router.get('/login', function(req, res){
 
   res.render('login', { user: req.user });
@@ -53,6 +48,7 @@ router.get('/auth/facebook/callback',
     res.redirect('/');
   });
 
+//logout API
 router.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
@@ -67,6 +63,8 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
 }
+
+//POST API to add a post
 router.post('/api/addPost',function(req,res){
   var post = {};
   console.log(req.session);
@@ -77,10 +75,13 @@ router.post('/api/addPost',function(req,res){
   });
 });
 
+//GET API to delete a post
 router.get('/api/deletePost/:postID',function(req,res){
   console.log(req.params.postID);
   db.deletePost(req.params.postID,function(){
     res.redirect('/');
   });
 });
+
+
 module.exports = router;
